@@ -1,0 +1,7 @@
+node_modules/
+.next/
+.env
+storage/
+demo-output/
+*.tsbuildinfo
+__pycache__/

@@ -1,0 +1,27 @@
+* { box-sizing: border-box; }
+body { font-family: system-ui, -apple-system, sans-serif; margin: 0; background: #f5f7fa; color: #1a202c; line-height: 1.5; }
+nav { background: #101828; color: #fff; padding: 0.7rem 1.5rem; display: flex; gap: 1.25rem; align-items: center; }
+nav a { color: #cbd5e0; text-decoration: none; font-size: 0.95rem; }
+nav a:hover { color: #fff; }
+nav .brand { color: #fff; font-weight: 700; font-size: 1.05rem; margin-right: 1rem; }
+main { max-width: 1000px; margin: 1.5rem auto; padding: 0 1rem; }
+.card { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 1.1rem 1.3rem; margin-bottom: 1rem; }
+h1 { font-size: 1.4rem; } h2 { font-size: 1.15rem; margin-top: 1.6rem; } h3 { font-size: 1rem; }
+table { border-collapse: collapse; width: 100%; font-size: 0.85rem; margin: 0.6rem 0; }
+th, td { border: 1px solid #e2e8f0; padding: 0.35rem 0.55rem; text-align: left; vertical-align: top; }
+th { background: #f7fafc; }
+input, textarea, select { width: 100%; padding: 0.55rem 0.7rem; border: 1px solid #cbd5e0; border-radius: 7px; font: inherit; margin-bottom: 0.7rem; }
+button { background: #1d4ed8; color: #fff; border: 0; border-radius: 7px; padding: 0.55rem 1.1rem; font: inherit; cursor: pointer; }
+button:hover { background: #1e40af; }
+button.secondary { background: #e2e8f0; color: #1a202c; }
+.badge { display: inline-block; padding: 0.1rem 0.55rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; }
+.badge.ok { background: #d1fae5; color: #065f46; }
+.badge.run { background: #dbeafe; color: #1e40af; }
+.badge.fail { background: #fee2e2; color: #991b1b; }
+.badge.tier1 { background: #d1fae5; color: #065f46; } .badge.tier2 { background: #dbeafe; color: #1e40af; }
+.badge.tier3 { background: #fef3c7; color: #92400e; } .badge.tier4 { background: #fee2e2; color: #991b1b; }
+.muted { color: #64748b; font-size: 0.85rem; }
+.error { color: #b91c1c; font-size: 0.9rem; }
+.mock-banner { background: #fef3c7; border: 1px solid #f59e0b; color: #92400e; border-radius: 8px; padding: 0.5rem 0.9rem; font-size: 0.85rem; margin-bottom: 1rem; }
+pre { background: #0f172a; color: #e2e8f0; padding: 0.8rem; border-radius: 8px; overflow-x: auto; font-size: 0.8rem; }
+a { color: #1d4ed8; }

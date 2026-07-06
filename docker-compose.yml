@@ -1,0 +1,61 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: prospect
+      POSTGRES_PASSWORD: prospect
+      POSTGRES_DB: prospect
+    volumes: [pgdata:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U prospect"]
+      interval: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      retries: 10
+
+  analysis:
+    build: ./analysis
+    ports: ["8000:8000"]
+
+  web:
+    build: .
+    command: sh -c "npx prisma db push --accept-data-loss && npx tsx prisma/seed.ts && npm run start"
+    environment: &appenv
+      DATABASE_URL: postgresql://prospect:prospect@postgres:5432/prospect
+      REDIS_URL: redis://redis:6379
+      ANALYSIS_SERVICE_URL: http://analysis:8000
+      APP_SECRET: ${APP_SECRET:-change-me-in-production}
+      MOCK_MODE: ${MOCK_MODE:-true}
+      RUN_JOBS_INLINE: "false"
+      STORAGE_DIR: /data/storage
+      SEARCH_PROVIDER: ${SEARCH_PROVIDER:-mock}
+      BRAVE_API_KEY: ${BRAVE_API_KEY:-}
+      EIA_API_KEY: ${EIA_API_KEY:-}
+      FRED_API_KEY: ${FRED_API_KEY:-}
+    volumes: [storage:/data/storage]
+    ports: ["3000:3000"]
+    depends_on:
+      postgres: { condition: service_healthy }
+      redis: { condition: service_healthy }
+      analysis: { condition: service_started }
+
+  worker:
+    build: .
+    command: npm run worker
+    environment: *appenv
+    volumes: [storage:/data/storage]
+    depends_on:
+      postgres: { condition: service_healthy }
+      redis: { condition: service_healthy }
+      web: { condition: service_started }
+
+volumes:
+  pgdata:
+  storage:
