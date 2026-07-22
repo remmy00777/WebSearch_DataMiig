@@ -33,7 +33,7 @@ export function verifySessionToken(token: string | undefined): string | null {
 export function sessionCookieName() { return COOKIE; }
 
 export async function getSessionUser() {
-  const uid = verifySessionToken(cookies().get(COOKIE)?.value);
+  const uid = verifySessionToken((await cookies()).get(COOKIE)?.value);
   if (!uid) return null;
   return prisma.user.findUnique({ where: { id: uid } });
 }

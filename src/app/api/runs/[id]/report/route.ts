@@ -4,7 +4,8 @@ import { prisma } from '@/lib/db';
 import { storage } from '@/lib/storage';
 import { requireUser } from '@/lib/apiAuth';
 
-export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(req: NextRequest, props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
   const { user, error } = await requireUser();
   if (!user) return error;
   const format = req.nextUrl.searchParams.get('format') === 'markdown' ? 'markdown' : 'html';

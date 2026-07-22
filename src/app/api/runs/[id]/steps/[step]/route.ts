@@ -8,7 +8,11 @@ import { buildPlan } from '@/skills/planner';
 import { getSearchProvider, runIntelligentSearch } from '@/skills/search';
 import { evaluateSources } from '@/skills/evaluate';
 
-export async function POST(_req: NextRequest, { params }: { params: { id: string; step: string } }) {
+export async function POST(
+  _req: NextRequest,
+  props: { params: Promise<{ id: string; step: string }> }
+) {
+  const params = await props.params;
   const { user, error } = await requireUser();
   if (!user) return error;
   const run = await prisma.researchRun.findFirst({ where: { id: params.id, project: { userId: user.id } }, include: { question: true } });
