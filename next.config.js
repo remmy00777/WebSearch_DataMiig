@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  experimental: { serverComponentsExternalPackages: ['bullmq', 'ioredis'] }
+  serverExternalPackages: ['bullmq', 'ioredis']
 };
+
 module.exports = nextConfig;
