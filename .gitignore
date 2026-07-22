@@ -5,3 +5,5 @@ storage/
 demo-output/
 *.tsbuildinfo
 __pycache__/
+.railway
+.env.local

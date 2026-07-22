@@ -11,5 +11,5 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
   const report = await prisma.report.findFirst({ where: { runId: params.id, format, run: { project: { userId: user.id } } } });
   if (!report) return NextResponse.json({ error: 'Report not found (run may still be in progress).' }, { status: 404 });
   const content = await storage.read(report.path);
-  return new NextResponse(content, { headers: { 'Content-Type': format === 'html' ? 'text/html' : 'text/markdown; charset=utf-8' } });
+  return new NextResponse(Uint8Array.from(content), { headers: { 'Content-Type': format === 'html' ? 'text/html' : 'text/markdown; charset=utf-8' } });
 }

@@ -13,7 +13,7 @@ export async function GET(_req: NextRequest, { params }: { params: { id: string 
   if (!file) return NextResponse.json({ error: 'Not found' }, { status: 404 });
   const content = await storage.read(file.path);
   const type = file.filename.endsWith('.csv') ? 'text/csv' : 'application/json';
-  return new NextResponse(content, {
+  return new NextResponse(Uint8Array.from(content), {
     headers: { 'Content-Type': type, 'Content-Disposition': `attachment; filename="${file.filename}"` }
   });
 }
